@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecobombas | Ingeniería Hidráulica de Clase Mundial</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        steel: {
+                            900: '#0b1119',
+                            800: '#131c2b',
+                            700: '#1e2a3a',
+                            600: '#2c3a4e',
+                            400: '#7a8fa6',
+                            300: '#9aaec3',
+                            100: '#e2e8f0',
+                        },
+                        aqua: {
+                            400: '#48cae4',
+                            500: '#00b4d8',
+                            600: '#0096c7',
+                            700: '#0077b6',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'tech-pattern': "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'0.02\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b1119;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Navbar */
+        #navbar {
+            transition: all 0.4s ease;
+            z-index: 50;
+            background: transparent;
+        }
+        .nav-scrolled {
+            background: rgba(11, 17, 25, 0.96) !important;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #131c2b;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0;
+            min-width: 200px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .dropdown-menu.open {
+            display: block;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1.5rem;
+            color: #cbd5e1;
+            font-size: 0.8rem;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .dropdown-menu a:hover {
+            background: #1e2a3a;
+            color: #48cae4;
+        }
+
+        /* Submenú móvil */
+        #mobile-submenu {
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid #00b4d8;
+        }
+        #mobile-submenu.open {
+            display: flex;
+        }
+        #mobile-submenu a {
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+            color: #9aaec3;
+            transition: color 0.2s;
+        }
+        #mobile-submenu a:hover {
+            color: #48cae4;
+        }
+
+        /* Clip paths */
+        .clip-slant-bottom {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        .clip-slant-top {
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* Tarjetas tech */
+        .tech-card {
+            background: rgba(19, 28, 43, 0.7);
+            border: 1px solid rgba(0, 180, 216, 0.15);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 180, 216, 0.08), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.7s;
+        }
+        .tech-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 180, 216, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.08);
+        }
+        .tech-card:hover::before {
+            left: 150%;
+        }
+
+        /* Efecto fade-up */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Galería de productos */
+        .product-grid-card {
+            background: rgba(19, 28, 43, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.35s ease;
+            overflow: hidden;
+        }
+        .product-grid-card:hover {
+            border-color: #00b4d8;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(0, 180, 216, 0.1);
+        }
+        .product-grid-card img {
+            transition: transform 0.5s ease;
+        }
+        .product-grid-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Galería de promociones */
+        .promo-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .promo-grid-item:hover {
+            transform: scale(1.02);
+            border-color: #00b4d8;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        .promo-grid-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .promo-grid-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(11, 17, 25, 0.85), transparent);
+            padding: 1.5rem 1rem 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .promo-grid-item:hover .overlay {
+            opacity: 1;
+        }
+        .promo-grid-item .overlay span {
+            font-size: 0.8rem;
+            color: #9aaec3;
+            font-weight: 500;
+        }
+
+        /* FAQ */
+        .faq-btn .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+        .faq-btn.open .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 1.5rem;
+        }
+        .faq-content.open {
+            max-height: 300px;
+            padding: 1rem 1.5rem 1.5rem;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1119;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2c3a4e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00b4d8;
+        }
+
+        /* Hero slider */
+        .hero-slide {
+            animation: heroFade 12s infinite;
+        }
+        .hero-slide:nth-child(2) {
+            animation-delay: 4s;
+        }
+        .hero-slide:nth-child(3) {
+            animation-delay: 8s;
+        }
+        @keyframes heroFade {
+            0% { opacity: 1; }
+            25% { opacity: 1; }
+            33% { opacity: 0; }
+            92% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .hero-slide {
+            opacity: 0;
+            position: absolute;
+            inset: 0;
+        }
+        .hero-slide:first-child {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(11, 17, 25, 0.8) 0%, rgba(11, 17, 25, 0.3) 100%);
+        }
+
+        /* Efecto de escritura mejorado */
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #00b4d8;
+            animation: typewriter 2.5s steps(30) 1s forwards, blink 0.8s step-end infinite;
+            max-width: 0;
+            display: inline-block;
+        }
+        @keyframes typewriter {
+            from { max-width: 0; }
+            to { max-width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* Divisor con texto animado (marquee) */
+        .marquee-divider {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            background: rgba(0, 180, 216, 0.05);
+            border-top: 1px solid rgba(0, 180, 216, 0.2);
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            padding: 0.75rem 0;
+        }
+        .marquee-divider .marquee-content {
+            display: inline-block;
+            animation: marqueeScroll 25s linear infinite;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: #7a8fa6;
+            text-transform: uppercase;
+        }
+        .marquee-divider .marquee-content span {
+            margin: 0 3rem;
+            color: #48cae4;
+        }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Servicios iconos */
+        .service-icon-box {
+            background: rgba(19, 28, 43, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .service-icon-box:hover {
+            border-color: #00b4d8;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.1);
+        }
+
+        /* Ajuste para móvil */
+        @media (max-width: 640px) {
+            .hero-slide {
+                animation-duration: 9s;
+            }
+            .marquee-divider .marquee-content {
+                animation-duration: 15s;
+            }
+        }
+
+        /* Estilo para el slider indicator */
+        .slider-dot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .slider-dot.active {
+            background-color: #00b4d8;
+            transform: scale(1.3);
+        }
+        .slider-dot:not(.active):hover {
+            background-color: #48cae4;
+            transform: scale(1.1);
+        }
+
+        /* Badge de "nuevo" en productos */
+        .badge-new {
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            z-index: 5;
+            box-shadow: 0 2px 8px rgba(0, 180, 216, 0.4);
+        }
+
+        /* Efecto de partículas sutiles en el hero (opcional) */
+        .particle {
+            position: absolute;
+            background: rgba(0, 180, 216, 0.15);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatParticle 15s infinite linear;
+        }
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== NAVBAR ====== -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full py-4 px-6 lg:px-12 flex justify-between items-center z-50 transition-all duration-400">
+        <a href="#inicio" class="text-2xl font-heading font-bold text-white tracking-widest flex items-center gap-3">
+            <span class="w-10 h-10 rounded-full bg-aqua-500 text-white flex items-center justify-center shadow-lg shadow-aqua-500/20">
+                <i class="fa-solid fa-droplet text-lg"></i>
+            </span>
+            ECO<span class="font-light">BOMBAS</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-8 text-sm font-medium uppercase tracking-wider">
+            <a href="#nosotros" class="text-steel-300 hover:text-white transition-colors relative group">
+                Nosotros
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-aqua-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <div class="relative">
+                <button id="products-dropdown-btn" class="text-steel-300 hover:text-white transition-colors flex items-center gap-1 focus:outline-none group">
+                    Productos
+                    <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-aqua-500 group-hover:w-full transition-all duration-300"></span>
+                </button>
+                <div id="products-dropdown" class="dropdown-menu">
+                    <a href="Bombas.html?categoria=industrial">Industrial</a>
+                    <a href="Bombas.html?categoria=residencial">Residencial</a>
+                    <a href="Bombas.html?categoria=agrícola">Agrícola</a>
+                    <a href="Bombas.html?categoria=control">Control</a>
+                    <a href="Bombas.html?categoria=especiales">Especiales</a>
+                </div>
+            </div>
+            <a href="#promociones" class="text-steel-300 hover:text-white transition-colors relative group">
+                Promociones
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-aqua-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="#faq" class="text-steel-300 hover:text-white transition-colors relative group">
+                FAQ
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-aqua-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="#contacto" class="bg-aqua-600 hover:bg-aqua-500 text-white px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-aqua-600/20 hover:shadow-aqua-600/40">
+                Contactar
+            </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden text-white text-2xl focus:outline-none">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- ====== MENÚ MÓVIL ====== -->
+    <div id="mobile-menu" class="fixed inset-0 bg-steel-900/95 backdrop-blur-lg z-40 hidden flex-col justify-center items-center space-y-6 text-xl font-medium opacity-0 transition-opacity duration-300">
+        <a href="#inicio" class="text-white hover:text-aqua-400 transition mobile-link">Inicio</a>
+        <a href="#nosotros" class="text-white hover:text-aqua-400 transition mobile-link">Nosotros</a>
+        <div class="text-center">
+            <button id="mobile-products-toggle" class="text-white hover:text-aqua-400 transition flex items-center gap-2">
+                Productos <i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
+            <div id="mobile-submenu" class="mt-2 space-y-1">
+                <a href="Bombas.html?categoria=industrial">Industrial</a>
+                <a href="Bombas.html?categoria=residencial">Residencial</a>
+                <a href="Bombas.html?categoria=agrícola">Agrícola</a>
+                <a href="Bombas.html?categoria=control">Control</a>
+                <a href="Bombas.html?categoria=especiales">Especiales</a>
+            </div>
+        </div>
+        <a href="#promociones" class="text-white hover:text-aqua-400 transition mobile-link">Promociones</a>
+        <a href="#faq" class="text-white hover:text-aqua-400 transition mobile-link">FAQ</a>
+        <a href="#contacto" class="bg-aqua-600 hover:bg-aqua-500 text-white px-8 py-3 rounded-lg transition mobile-link">Contactar</a>
+    </div>
+
+    <!-- ====== HERO MEJORADO ====== -->
+    <section id="inicio" class="relative h-screen flex items-center justify-center overflow-hidden clip-slant-bottom">
+        <!-- Slider de imágenes -->
+        <div class="absolute inset-0 z-0" id="hero-slider">
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+            <div class="absolute inset-0 hero-overlay"></div>
+            <div class="absolute inset-0 bg-tech-pattern opacity-10"></div>
+        </div>
+
+        <!-- Partículas sutiles -->
+        <div id="particles-container" class="absolute inset-0 z-5 pointer-events-none overflow-hidden"></div>
+
+        <!-- Indicadores de slider (puntos) -->
+        <div class="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+            <span class="slider-dot w-3 h-3 rounded-full bg-white/30 active" data-index="0"></span>
+            <span class="slider-dot w-3 h-3 rounded-full bg-white/30" data-index="1"></span>
+            <span class="slider-dot w-3 h-3 rounded-full bg-white/30" data-index="2"></span>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center lg:text-left w-full">
+            <div class="lg:w-2/3">
+                <span class="inline-block bg-aqua-500/10 text-aqua-400 text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full border border-aqua-500/30 mb-6 fade-up">
+                    Líderes en ingeniería hidráulica
+                </span>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white uppercase leading-tight mb-6 fade-up" style="transition-delay: 100ms;">
+                    Potencia que <br>
+                    <span class="text-aqua-400 typewriter">mueve su operación.</span>
+                </h1>
+                <p class="text-steel-300 text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 mb-10 fade-up font-light" style="transition-delay: 200ms;">
+                    Sistemas de bombeo diseñados para la máxima exigencia industrial. <br class="hidden md:block">
+                    Rendimiento, durabilidad y eficiencia energética.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center lg:justify-start fade-up" style="transition-delay: 300ms;">
+                    <a href="#productos" class="bg-aqua-600 hover:bg-aqua-500 text-white font-semibold px-8 py-4 rounded-lg transition-all shadow-lg shadow-aqua-600/30 hover:shadow-aqua-600/50 flex items-center gap-2 uppercase tracking-wider">
+                        <i class="fa-solid fa-arrow-right"></i> Explorar productos
+                    </a>
+                    <a href="#contacto" class="bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white border border-white/10 px-8 py-4 rounded-lg transition-all flex items-center gap-2 uppercase tracking-wider">
+                        <i class="fa-regular fa-message"></i> Asesoría técnica
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+            <span class="text-[10px] uppercase tracking-widest text-steel-400 block text-center">Desplazar</span>
+            <div class="w-0.5 h-12 bg-gradient-to-b from-aqua-500 to-transparent mx-auto"></div>
+        </div>
+    </section>
+
+    <!-- ====== SERVICIOS ICONOS (debajo del hero) ====== -->
+    <section class="relative -mt-12 z-20 px-6 lg:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="service-icon-box rounded-xl p-5 text-center fade-up hover:shadow-lg transition-shadow">
+                <div class="w-14 h-14 mx-auto bg-aqua-500/10 rounded-full flex items-center justify-center text-aqua-400 text-2xl mb-3 group-hover:bg-aqua-500 group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-oil-well"></i>
+                </div>
+                <h4 class="text-white font-heading text-sm uppercase tracking-wider">Bombas Industriales</h4>
+                <p class="text-steel-400 text-xs mt-1">Alta presión y caudal</p>
+            </div>
+            <div class="service-icon-box rounded-xl p-5 text-center fade-up hover:shadow-lg transition-shadow" style="transition-delay: 100ms;">
+                <div class="w-14 h-14 mx-auto bg-aqua-500/10 rounded-full flex items-center justify-center text-aqua-400 text-2xl mb-3">
+                    <i class="fa-solid fa-wrench"></i>
+                </div>
+                <h4 class="text-white font-heading text-sm uppercase tracking-wider">Mantenimiento</h4>
+                <p class="text-steel-400 text-xs mt-1">Preventivo y correctivo</p>
+            </div>
+            <div class="service-icon-box rounded-xl p-5 text-center fade-up hover:shadow-lg transition-shadow" style="transition-delay: 200ms;">
+                <div class="w-14 h-14 mx-auto bg-aqua-500/10 rounded-full flex items-center justify-center text-aqua-400 text-2xl mb-3">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h4 class="text-white font-heading text-sm uppercase tracking-wider">Automatización</h4>
+                <p class="text-steel-400 text-xs mt-1">Tableros y PLC</p>
+            </div>
+            <div class="service-icon-box rounded-xl p-5 text-center fade-up hover:shadow-lg transition-shadow" style="transition-delay: 300ms;">
+                <div class="w-14 h-14 mx-auto bg-aqua-500/10 rounded-full flex items-center justify-center text-aqua-400 text-2xl mb-3">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h4 class="text-white font-heading text-sm uppercase tracking-wider">Soporte 24/7</h4>
+                <p class="text-steel-400 text-xs mt-1">Asistencia técnica</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== NOSOTROS ====== -->
+    <section id="nosotros" class="py-28 bg-steel-900 border-y border-steel-800 relative overflow-hidden">
+        <div class="absolute inset-0 bg-tech-pattern opacity-5"></div>
+        <div class="absolute inset-0 bg-gradient-radial from-aqua-500/5 to-transparent opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-up">
+                    <span class="text-aqua-400 text-xs font-semibold tracking-widest uppercase block mb-3">Quiénes somos</span>
+                    <h2 class="text-3xl md:text-5xl font-heading font-bold text-white uppercase mb-6 leading-tight">
+                        Ingeniería con <br><span class="text-aqua-400">estándar internacional.</span>
+                    </h2>
+                    <p class="text-steel-300 text-lg font-light mb-6">
+                        En <strong class="text-white">ECOBOMBAS</strong> integramos décadas de experiencia en sistemas de bombeo con tecnología de vanguardia. No somos un simple proveedor; somos el socio que garantiza la continuidad de su producción.
+                    </p>
+                    <p class="text-steel-400 mb-8">
+                        Cada solución que entregamos está respaldada por cálculos hidráulicos rigurosos, selección de materiales de primera calidad y un equipo de ingenieros comprometidos con la excelencia operativa.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="border-l-2 border-aqua-500 pl-4">
+                            <div class="text-aqua-400 text-3xl font-heading font-bold counter" data-target="150">0</div>
+                            <span class="text-steel-400 text-sm">Proyectos exitosos</span>
+                        </div>
+                        <div class="border-l-2 border-aqua-500 pl-4">
+                            <div class="text-aqua-400 text-3xl font-heading font-bold counter" data-target="98">0%</div>
+                            <span class="text-steel-400 text-sm">Eficiencia energética</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative fade-up" style="transition-delay: 100ms;">
+                    <div class="grid grid-cols-2 gap-3">
+                        <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?q=80&w=600&auto=format&fit=crop" alt="Instalación industrial" class="rounded-lg shadow-xl object-cover h-64 w-full transition-transform duration-500 hover:scale-105">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" alt="Ingeniero revisando equipo" class="rounded-lg shadow-xl object-cover h-64 w-full mt-8 transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-steel-800 border border-steel-700 p-4 rounded-lg shadow-2xl backdrop-blur-sm">
+                        <span class="text-xs text-steel-300">Certificación</span>
+                        <div class="flex items-center gap-2 mt-1">
+                            <i class="fa-solid fa-certificate text-aqua-400 text-xl"></i>
+                            <span class="text-white font-bold">ISO 9001</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== DIVISOR CON TEXTO DESPLAZABLE ====== -->
+    <div class="marquee-divider w-full mt-16">
+        <div class="marquee-content">
+            <span>✦</span> Ingeniería hidráulica de clase mundial <span>✦</span> Bombas centrífugas y sumergibles <span>✦</span> Sistemas hidroneumáticos <span>✦</span> Tableros de control y automatización <span>✦</span> Mantenimiento especializado <span>✦</span> Proyectos llave en mano <span>✦</span> Eficiencia energética garantizada <span>✦</span>
+            <span>✦</span> Ingeniería hidráulica de clase mundial <span>✦</span> Bombas centrífugas y sumergibles <span>✦</span> Sistemas hidroneumáticos <span>✦</span> Tableros de control y automatización <span>✦</span> Mantenimiento especializado <span>✦</span> Proyectos llave en mano <span>✦</span> Eficiencia energética garantizada <span>✦</span>
+        </div>
+    </div>
+
+    <!-- ====== PRODUCTOS ====== -->
+    <section id="productos" class="py-28 bg-steel-800 relative overflow-hidden">
+        <div class="absolute inset-0 bg-tech-pattern opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+                <span class="text-aqua-400 text-xs font-semibold tracking-widest uppercase">Catálogo</span>
+                <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mt-2 mb-4 uppercase">Nuestros equipos</h2>
+                <p class="text-steel-300 text-lg font-light">Selección de bombas y sistemas diseñados para las exigencias industriales más altas.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Producto 1 -->
+                <div class="product-grid-card rounded-xl group fade-up">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?q=80&w=600&auto=format&fit=crop" alt="Bombas centrífugas" class="w-full h-full object-cover">
+                        <span class="badge-new">Nuevo</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs font-semibold text-aqua-400 tracking-wider uppercase">Industrial</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading text-white uppercase mb-1">Bombas Centrífugas</h3>
+                        <p class="text-steel-400 text-sm mb-4">Alta presión, multietapa, robustas.</p>
+                        <a href="Bombas.html?producto=Bombas%20Centr%C3%ADfugas%20Multietapa" class="text-aqua-400 font-medium text-sm hover:text-aqua-300 transition inline-flex items-center gap-2 uppercase tracking-wider">
+                            Ver galería <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Producto 2 -->
+                <div class="product-grid-card rounded-xl group fade-up" style="transition-delay: 100ms;">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?q=80&w=600&auto=format&fit=crop" alt="Sistemas hidroneumáticos" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs font-semibold text-aqua-400 tracking-wider uppercase">Residencial</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading text-white uppercase mb-1">Sistemas Hidroneumáticos</h3>
+                        <p class="text-steel-400 text-sm mb-4">Presión constante, silenciosos.</p>
+                        <a href="Bombas.html?producto=Sistemas%20Hidroneumáticos" class="text-aqua-400 font-medium text-sm hover:text-aqua-300 transition inline-flex items-center gap-2 uppercase tracking-wider">
+                            Ver galería <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Producto 3 -->
+                <div class="product-grid-card rounded-xl group fade-up" style="transition-delay: 200ms;">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1621905252472-749e0887ee23?q=80&w=600&auto=format&fit=crop" alt="Bombas sumergibles" class="w-full h-full object-cover">
+                        <span class="badge-new">Destacado</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs font-semibold text-aqua-400 tracking-wider uppercase">Agrícola</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading text-white uppercase mb-1">Bombas Sumergibles</h3>
+                        <p class="text-steel-400 text-sm mb-4">Alto caudal, profundidad extrema.</p>
+                        <a href="Bombas.html?producto=Bombas%20Sumergibles%20de%20Alto%20Caudal" class="text-aqua-400 font-medium text-sm hover:text-aqua-300 transition inline-flex items-center gap-2 uppercase tracking-wider">
+                            Ver galería <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Producto 4 -->
+                <div class="product-grid-card rounded-xl group fade-up" style="transition-delay: 300ms;">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=600&auto=format&fit=crop" alt="Tableros de control" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs font-semibold text-aqua-400 tracking-wider uppercase">Control</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading text-white uppercase mb-1">Tableros de Control</h3>
+                        <p class="text-steel-400 text-sm mb-4">Variadores, PLC, monitoreo remoto.</p>
+                        <a href="Bombas.html?producto=Tableros%20de%20Control%20Inteligente" class="text-aqua-400 font-medium text-sm hover:text-aqua-300 transition inline-flex items-center gap-2 uppercase tracking-wider">
+                            Ver galería <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Producto 5 -->
+                <div class="product-grid-card rounded-xl group fade-up" style="transition-delay: 400ms;">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1574621100236-d25b64dfceaf?q=80&w=600&auto=format&fit=crop" alt="Bombas de achique" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs font-semibold text-aqua-400 tracking-wider uppercase">Especiales</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading text-white uppercase mb-1">Bombas de Achique</h3>
+                        <p class="text-steel-400 text-sm mb-4">Sólidos, drenaje, emergencias.</p>
+                        <a href="Bombas.html?producto=Bombas%20de%20Achique%20y%20Drenaje" class="text-aqua-400 font-medium text-sm hover:text-aqua-300 transition inline-flex items-center gap-2 uppercase tracking-wider">
+                            Ver galería <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Producto 6 -->
+                <div class="product-grid-card rounded-xl group fade-up" style="transition-delay: 500ms;">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1582218055627-9cda8f2de405?q=80&w=600&auto=format&fit=crop" alt="Bombas de proceso" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs font-semibold text-aqua-400 tracking-wider uppercase">Proceso</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading text-white uppercase mb-1">Bombas de Proceso</h3>
+                        <p class="text-steel-400 text-sm mb-4">Químicos, alta temperatura.</p>
+                        <a href="Bombas.html" class="text-aqua-400 font-medium text-sm hover:text-aqua-300 transition inline-flex items-center gap-2 uppercase tracking-wider">
+                            Ver galería <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12 fade-up">
+                <a href="Bombas.html" class="inline-flex items-center gap-2 border border-aqua-500/40 hover:border-aqua-500 text-aqua-400 hover:text-white px-8 py-3 rounded-lg transition-all font-medium uppercase tracking-wider">
+                    Ver todos los productos <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PROMOCIONES ====== -->
+    <section id="promociones" class="py-28 bg-steel-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-tech-pattern opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+                <span class="text-aqua-400 text-xs font-semibold tracking-widest uppercase">Ofertas especiales</span>
+                <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mt-2 mb-4 uppercase">Promociones vigentes</h2>
+                <p class="text-steel-300 text-lg font-light">Aproveche nuestros paquetes y descuentos en equipos seleccionados.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="promo-grid-item fade-up">
+                    <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=600&auto=format&fit=crop" alt="Promo 1">
+                    <div class="overlay">
+                        <span>Equipos industriales · 15% off</span>
+                    </div>
+                </div>
+                <div class="promo-grid-item fade-up" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?q=80&w=600&auto=format&fit=crop" alt="Promo 2">
+                    <div class="overlay">
+                        <span>Paquete hidroneumático · 10% off</span>
+                    </div>
+                </div>
+                <div class="promo-grid-item fade-up" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1621905252472-749e0887ee23?q=80&w=600&auto=format&fit=crop" alt="Promo 3">
+                    <div class="overlay">
+                        <span>Bombas sumergibles · 12% off</span>
+                    </div>
+                </div>
+                <div class="promo-grid-item fade-up" style="transition-delay: 300ms;">
+                    <img src="https://images.unsplash.com/photo-1582218055627-9cda8f2de405?q=80&w=600&auto=format&fit=crop" alt="Promo 4">
+                    <div class="overlay">
+                        <span>Tableros de control · 8% off</span>
+                    </div>
+                </div>
+                <div class="promo-grid-item fade-up" style="transition-delay: 400ms;">
+                    <img src="https://images.unsplash.com/photo-1574621100236-d25b64dfceaf?q=80&w=600&auto=format&fit=crop" alt="Promo 5">
+                    <div class="overlay">
+                        <span>Bombas de achique · 18% off</span>
+                    </div>
+                </div>
+                <div class="promo-grid-item fade-up" style="transition-delay: 500ms;">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" alt="Promo 6">
+                    <div class="overlay">
+                        <span>Servicio técnico · 20% off</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12 fade-up">
+                <a href="#contacto" class="inline-flex items-center gap-3 bg-aqua-600 hover:bg-aqua-500 text-white font-semibold px-10 py-4 rounded-lg transition-all shadow-lg shadow-aqua-600/30 hover:shadow-aqua-600/50 uppercase tracking-wider">
+                    <i class="fa-regular fa-calendar-check"></i> Solicitar promoción
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FAQ ====== -->
+    <section id="faq" class="py-28 bg-steel-800 border-y border-steel-700 relative overflow-hidden">
+        <div class="absolute inset-0 bg-tech-pattern opacity-5"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-aqua-400 text-xs font-semibold tracking-widest uppercase">Preguntas frecuentes</span>
+                <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mt-2 mb-4 uppercase">Resolvemos sus dudas</h2>
+            </div>
+            <div class="space-y-4 fade-up">
+                <div class="bg-steel-900/60 border border-steel-700 rounded-xl overflow-hidden">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center hover:bg-steel-800/50 transition-colors">
+                        <span class="text-white font-medium">¿Realizan mantenimiento a bombas de otras marcas?</span>
+                        <i class="fa-solid fa-chevron-down text-aqua-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-steel-300 text-sm font-light">
+                        Sí, nuestro taller especializado está capacitado para reparar, embobinar y dar mantenimiento preventivo a bombas industriales de cualquier marca, utilizando repuestos genéricos o originales según la necesidad del cliente.
+                    </div>
+                </div>
+                <div class="bg-steel-900/60 border border-steel-700 rounded-xl overflow-hidden">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center hover:bg-steel-800/50 transition-colors">
+                        <span class="text-white font-medium">¿Qué garantía ofrecen en sus equipos nuevos?</span>
+                        <i class="fa-solid fa-chevron-down text-aqua-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-steel-300 text-sm font-light">
+                        Todos nuestros equipos nuevos cuentan con una garantía comercial estándar de 12 a 24 meses contra defectos de fábrica. Además, si realizamos la instalación, garantizamos nuestra mano de obra por 1 año.
+                    </div>
+                </div>
+                <div class="bg-steel-900/60 border border-steel-700 rounded-xl overflow-hidden">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center hover:bg-steel-800/50 transition-colors">
+                        <span class="text-white font-medium">¿Atienden emergencias de paros de planta?</span>
+                        <i class="fa-solid fa-chevron-down text-aqua-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-steel-300 text-sm font-light">
+                        Contamos con un servicio de respuesta rápida para clientes con póliza de mantenimiento activa. Evaluamos la situación de inmediato para proveer un equipo de respaldo o realizar la reparación in situ.
+                    </div>
+                </div>
+                <div class="bg-steel-900/60 border border-steel-700 rounded-xl overflow-hidden">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center hover:bg-steel-800/50 transition-colors">
+                        <span class="text-white font-medium">¿Cómo calculan el equipo adecuado para mi proyecto?</span>
+                        <i class="fa-solid fa-chevron-down text-aqua-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-steel-300 text-sm font-light">
+                        Nuestros ingenieros realizan un análisis hidráulico completo: caudal requerido, altura dinámica total, tipo de fluido, régimen de operación y eficiencia energética, para seleccionar el equipo óptimo.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CONTACTO ====== -->
+    <section id="contacto" class="py-28 bg-steel-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-tech-pattern opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div class="fade-up">
+                    <span class="text-aqua-400 text-xs font-semibold tracking-widest uppercase block mb-3">Contacto</span>
+                    <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mb-6 leading-tight uppercase">
+                        Hablemos de <br><span class="text-aqua-400">su proyecto.</span>
+                    </h2>
+                    <p class="text-steel-300 text-lg font-light mb-8">
+                        Complete el formulario o comuníquese directamente con nuestras oficinas. Nuestro equipo de ingeniería responderá en menos de 24 horas.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-steel-800 rounded-xl flex items-center justify-center text-aqua-400 text-xl border border-steel-700">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold uppercase tracking-wider">Oficina Central</h4>
+                                <p class="text-steel-400">Parque Industrial Tecnológico, Nave 4.<br>Avenida Las Industrias.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-steel-800 rounded-xl flex items-center justify-center text-aqua-400 text-xl border border-steel-700">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold uppercase tracking-wider">Línea de atención</h4>
+                                <p class="text-steel-400">+1 (800) 123-4567<br>Lunes a viernes: 8:00 – 18:00</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-steel-800 rounded-xl flex items-center justify-center text-aqua-400 text-xl border border-steel-700">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold uppercase tracking-wider">Correo electrónico</h4>
+                                <p class="text-steel-400">proyectos@ecobombas.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Redes sociales -->
+                    <div class="mt-10 pt-8 border-t border-steel-800">
+                        <span class="text-xs uppercase tracking-widest text-steel-400 font-semibold">Síganos</span>
+                        <div class="flex gap-4 mt-3">
+                            <a href="#" class="w-12 h-12 rounded-full bg-steel-800 hover:bg-aqua-600 text-steel-400 hover:text-white flex items-center justify-center transition-all duration-300 border border-steel-700 hover:border-aqua-500">
+                                <i class="fa-brands fa-linkedin-in text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-steel-800 hover:bg-aqua-600 text-steel-400 hover:text-white flex items-center justify-center transition-all duration-300 border border-steel-700 hover:border-aqua-500">
+                                <i class="fa-brands fa-youtube text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-steel-800 hover:bg-aqua-600 text-steel-400 hover:text-white flex items-center justify-center transition-all duration-300 border border-steel-700 hover:border-aqua-500">
+                                <i class="fa-brands fa-x-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-steel-800 hover:bg-aqua-600 text-steel-400 hover:text-white flex items-center justify-center transition-all duration-300 border border-steel-700 hover:border-aqua-500">
+                                <i class="fa-brands fa-instagram text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-up" style="transition-delay: 100ms;">
+                    <form class="bg-steel-800/50 backdrop-blur-sm p-8 md:p-10 rounded-2xl border border-steel-700 shadow-2xl" onsubmit="event.preventDefault(); alert('✅ Mensaje enviado. Nos pondremos en contacto con usted a la brevedad.');">
+                        <h3 class="text-2xl font-heading font-bold text-white mb-6 uppercase">Enviar mensaje</h3>
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium text-steel-300 mb-1.5 uppercase tracking-wider">Nombre / Empresa</label>
+                                <input type="text" class="w-full bg-steel-900/80 border border-steel-700 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-aqua-500 focus:ring-1 focus:ring-aqua-500 transition-colors placeholder-steel-500" required placeholder="Su nombre o empresa">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-steel-300 mb-1.5 uppercase tracking-wider">Correo electrónico</label>
+                                <input type="email" class="w-full bg-steel-900/80 border border-steel-700 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-aqua-500 focus:ring-1 focus:ring-aqua-500 transition-colors placeholder-steel-500" required placeholder="correo@empresa.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-steel-300 mb-1.5 uppercase tracking-wider">Teléfono</label>
+                                <input type="tel" class="w-full bg-steel-900/80 border border-steel-700 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-aqua-500 focus:ring-1 focus:ring-aqua-500 transition-colors placeholder-steel-500" placeholder="+58 412 1234567">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-steel-300 mb-1.5 uppercase tracking-wider">Mensaje</label>
+                                <textarea rows="4" class="w-full bg-steel-900/80 border border-steel-700 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-aqua-500 focus:ring-1 focus:ring-aqua-500 transition-colors resize-none placeholder-steel-500" required placeholder="Describa su requerimiento técnico..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-aqua-600 hover:bg-aqua-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-aqua-600/20 hover:shadow-aqua-600/40 flex items-center justify-center gap-2 uppercase tracking-wider transform hover:scale-[1.02] active:scale-95">
+                                <i class="fa-regular fa-paper-plane"></i> Enviar mensaje
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="bg-black border-t border-steel-800 py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full bg-aqua-500 text-white flex items-center justify-center shadow-lg shadow-aqua-500/20">
+                    <i class="fa-solid fa-droplet text-sm"></i>
+                </span>
+                <span class="text-white font-heading text-xl font-bold tracking-widest">ECOBOMBAS</span>
+            </div>
+            <p class="text-steel-500 text-sm text-center md:text-left">Ingeniería hidráulica con estándar internacional.</p>
+            <p class="text-steel-600 text-xs">&copy; <span id="year"></span> Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script>
+        // Año
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ====== NAVBAR SCROLL ======
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // ====== MENÚ MÓVIL ======
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenu.classList.remove('opacity-0');
+                    mobileMenu.classList.add('opacity-100');
+                }, 10);
+                mobileBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            } else {
+                mobileMenu.classList.remove('opacity-100');
+                mobileMenu.classList.add('opacity-0');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+                mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // ====== SUBMENÚ MÓVIL PRODUCTOS ======
+        const mobileProductsToggle = document.getElementById('mobile-products-toggle');
+        const mobileSubmenu = document.getElementById('mobile-submenu');
+        mobileProductsToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const icon = this.querySelector('i');
+            mobileSubmenu.classList.toggle('open');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+
+        mobileSubmenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileSubmenu.classList.remove('open');
+                const icon = mobileProductsToggle.querySelector('i');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+                if (isMenuOpen) toggleMenu();
+            });
+        });
+
+        // ====== DROPDOWN PRODUCTOS (ESCRITORIO) ======
+        const dropdownBtn = document.getElementById('products-dropdown-btn');
+        const dropdown = document.getElementById('products-dropdown');
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+        document.addEventListener('click', () => dropdown.classList.remove('open'));
+        dropdown.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => dropdown.classList.remove('open'));
+        });
+
+        // ====== SLIDER DEL HERO (con puntos interactivos) ======
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function goToSlide(index) {
+            // Quitar todas las opacidades
+            slides.forEach((slide, i) => {
+                slide.style.opacity = '0';
+                slide.style.animation = 'none';
+            });
+            // Poner la activa
+            slides[index].style.opacity = '1';
+            slides[index].style.animation = 'none'; // Reiniciar animación
+            // Actualizar dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % slides.length;
+            goToSlide(next);
+        }
+
+        // Iniciar slider automático
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Detener slider al hacer hover
+        const heroSlider = document.getElementById('hero-slider');
+        heroSlider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        heroSlider.addEventListener('mouseleave', startSlider);
+
+        // Click en dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                goToSlide(index);
+                // Reiniciar el timer después de clic manual
+                setTimeout(startSlider, 1000);
+            });
+        });
+
+        // Inicializar slider
+        goToSlide(0);
+        startSlider();
+
+        // ====== PARTÍCULAS SUTILES ======
+        const particlesContainer = document.getElementById('particles-container');
+        for (let i = 0; i < 25; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 60 + 10;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 20 + 15;
+            const delay = Math.random() * 20;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = left + '%';
+            particle.style.animationDuration = duration + 's';
+            particle.style.animationDelay = delay + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // ====== SCROLL REVEAL ======
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ====== FAQ ACCORDION ======
+        const faqBtns = document.querySelectorAll('.faq-btn');
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const isOpen = content.classList.contains('open');
+                document.querySelectorAll('.faq-content').forEach(c => c.classList.remove('open'));
+                document.querySelectorAll('.faq-btn').forEach(b => b.classList.remove('open'));
+                if (!isOpen) {
+                    content.classList.add('open');
+                    this.classList.add('open');
+                }
+            });
+        });
+
+        // ====== CONTADOR ANIMADO ======
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    let count = +counter.innerText.replace('%', '');
+                    const inc = target / speed;
+                    if (count < target) {
+                        count = Math.ceil(count + inc);
+                        counter.innerText = count + (counter.innerText.includes('%') ? '%' : '');
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target + (counter.innerText.includes('%') ? '%' : '');
+                    }
+                };
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCount();
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.5 });
+                observer.observe(counter);
+            });
+        };
+        window.addEventListener('load', animateCounters);
+    </script>
+</body>
+</html>
